@@ -55,9 +55,9 @@ Check out the code from GitHub::
     git clone https://github.com/wakiyamap/electrum-raven.git
     cd electrum-raven
 
-Need lyra2rev2_hash::
+Need x16r_hash::
 
-    pip3 install https://github.com/metalicjames/lyra2re-hash-python/archive/master.zip
+    pip3 install https://github.com/traysi/x16r_hash/releases/download/1.0/1.0.zip
 
 Run install (this should install dependencies)::
 

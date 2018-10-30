@@ -29,18 +29,16 @@ If you downloaded the official package (tar.gz), you can run Electrum-raven from
 
 You can also install Electrum-raven on your system, by running these commands::
 
-```
-cd ~
-virtualenv -p /usr/local/bin/python3.7 pve
-source ~/pve/bin/activate
-git clone https://github.com/traysi/electrum-raven
-cd electrum-raven
-pip3 install https://github.com/traysi/x16r_hash/releases/download/1.0/1.0.zip
-python3 -m pip install .[fast]
-pyrcc5 icons.qrc -o electrum/gui/qt/icons_rc.py
-pip3 install pyqt5
-./run_electrum
-```
+    cd ~
+    virtualenv -p /usr/local/bin/python3.7 pve
+    source ~/pve/bin/activate
+    git clone https://github.com/traysi/electrum-raven
+    cd electrum-raven
+    pip3 install https://github.com/traysi/x16r_hash/releases/download/1.0/1.0.zip
+    python3 -m pip install .[fast]
+    pyrcc5 icons.qrc -o electrum/gui/qt/icons_rc.py
+    pip3 install pyqt5
+    ./run_electrum
 
 Creating Binaries
 =================

@@ -14,7 +14,7 @@ else:
 PYTHON_VERSION = '3.6.6'
 PYHOME = 'c:/python' + PYTHON_VERSION
 
-home = 'C:\\electrum-mona\\'
+home = 'C:\\electrum-rvn\\'
 
 if os.path.exists("C:/Program Files (x86)"):
     zbardir = 'C:\\Program Files (x86)\\'
@@ -99,7 +99,7 @@ exe_standalone = EXE(
     a.scripts,
     a.binaries,
     a.datas,
-    name=os.path.join('build\\pyi.win32\\electrum-mona', cmdline_name + ".exe"),
+    name=os.path.join('build\\pyi.win32\\electrum-rvn', cmdline_name + ".exe"),
     debug=False,
     strip=None,
     upx=False,
@@ -112,7 +112,7 @@ exe_portable = EXE(
     a.scripts,
     a.binaries,
     a.datas + [ ('is_portable', 'README.md', 'DATA' ) ],
-    name=os.path.join('build\\pyi.win32\\electrum-mona', cmdline_name + "-portable.exe"),
+    name=os.path.join('build\\pyi.win32\\electrum-rvn', cmdline_name + "-portable.exe"),
     debug=False,
     strip=None,
     upx=False,
@@ -126,7 +126,7 @@ exe_dependent = EXE(
     pyz,
     a.scripts,
     exclude_binaries=True,
-    name=os.path.join('build\\pyi.win32\\electrum-mona', cmdline_name),
+    name=os.path.join('build\\pyi.win32\\electrum-rvn', cmdline_name),
     debug=False,
     strip=None,
     upx=False,
@@ -143,4 +143,4 @@ coll = COLLECT(
     debug=False,
     icon=home+'icons/electrum.ico',
     console=False,
-    name=os.path.join('dist', 'electrum-mona'))
+    name=os.path.join('dist', 'electrum-rvn'))

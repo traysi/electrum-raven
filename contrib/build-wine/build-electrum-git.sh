@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME_ROOT=electrum-mona
+NAME_ROOT=electrum-rvn
 PYTHON_VERSION=3.6.6
 
 # These settings probably don't need any change
@@ -19,7 +19,7 @@ set -e
 mkdir -p tmp
 cd tmp
 
-pushd $WINEPREFIX/drive_c/electrum-mona
+pushd $WINEPREFIX/drive_c/electrum-rvn
 
 # Load electrum-icons and electrum-locale for this release
 git submodule init
@@ -43,16 +43,16 @@ popd
 find -exec touch -d '2000-11-11T11:11:11+00:00' {} +
 popd
 
-cp $WINEPREFIX/drive_c/electrum-mona/LICENCE .
-cp -r $WINEPREFIX/drive_c/electrum-mona/contrib/deterministic-build/electrum-locale/locale $WINEPREFIX/drive_c/electrum-mona/electrum/
-cp $WINEPREFIX/drive_c/electrum-mona/contrib/deterministic-build/electrum-icons/icons_rc.py $WINEPREFIX/drive_c/electrum-mona/electrum/gui/qt/
+cp $WINEPREFIX/drive_c/electrum-rvn/LICENCE .
+cp -r $WINEPREFIX/drive_c/electrum-rvn/contrib/deterministic-build/electrum-locale/locale $WINEPREFIX/drive_c/electrum-rvn/electrum/
+cp $WINEPREFIX/drive_c/electrum-rvn/contrib/deterministic-build/electrum-icons/icons_rc.py $WINEPREFIX/drive_c/electrum-rvn/electrum/gui/qt/
 
 # Install frozen dependencies
 $PYTHON -m pip install -r ../../deterministic-build/requirements.txt
 
 $PYTHON -m pip install -r ../../deterministic-build/requirements-hw.txt
 
-pushd $WINEPREFIX/drive_c/electrum-mona
+pushd $WINEPREFIX/drive_c/electrum-rvn
 $PYTHON setup.py install
 popd
 
@@ -77,7 +77,7 @@ else
 fi
 
 cd dist
-mv electrum-mona-setup.exe $NAME_ROOT-$VERSION-setup.exe
+mv electrum-rvn-setup.exe $NAME_ROOT-$VERSION-setup.exe
 cd ..
 
 echo "Done."

@@ -1,4 +1,4 @@
-Electrum-mona - Lightweight Monacoin client
+Electrum-rvn - Lightweight Ravencoin client
 =====================================
 
 ::

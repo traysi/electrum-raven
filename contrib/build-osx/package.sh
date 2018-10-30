@@ -81,8 +81,8 @@ ${genisoimage} \
     -o Electrum_uncompressed.dmg \
     /tmp/electrum-macos/image || fail "Unable to create uncompressed dmg"
 
-dmg dmg Electrum_uncompressed.dmg electrum-mona-$VERSION.dmg || fail "Unable to create compressed dmg"
+dmg dmg Electrum_uncompressed.dmg electrum-rvn-$VERSION.dmg || fail "Unable to create compressed dmg"
 rm Electrum_uncompressed.dmg
 
 echo "Done."
-md5sum electrum-mona-$VERSION.dmg
+md5sum electrum-rvn-$VERSION.dmg

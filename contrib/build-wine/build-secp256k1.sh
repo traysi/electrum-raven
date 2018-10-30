@@ -19,7 +19,7 @@ build_dll() {
 }
 
 
-cd /tmp/electrum-mona-build
+cd /tmp/electrum-rvn-build
 
 if [ ! -d secp256k1 ]; then
     git clone https://github.com/bitcoin-core/secp256k1.git

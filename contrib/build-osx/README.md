@@ -32,6 +32,6 @@ Copy the Electrum.app directory over and install the dependencies, e.g.:
     
 Then you can just invoke `package.sh` with the path to the app:
 
-    cd electrum-mona
+    cd electrum-rvn
     ./contrib/build-osx/package.sh ~/Electrum-MONA.app/
 

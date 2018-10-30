@@ -29,7 +29,8 @@ If you downloaded the official package (tar.gz), you can run Electrum-raven from
 
 You can also install Electrum-raven on your system, by running these commands::
 
-```cd ~
+```
+cd ~
 virtualenv -p /usr/local/bin/python3.7 pve
 source ~/pve/bin/activate
 git clone https://github.com/traysi/electrum-raven

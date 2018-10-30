@@ -130,7 +130,7 @@ class ExchangeBase(PrintError):
 
 class BitcoinAverage(ExchangeBase):
     async def get_rates(self, ccy):
-        json1 = await self.get_json('apiv2.bitcoinaverage.com', '/indices/crypto/ticker/MONABTC')
+        json1 = await self.get_json('apiv2.bitcoinaverage.com', '/indices/crypto/ticker/RVNBTC')
         if ccy != "BTC":
             json2 = await self.get_json('apiv2.bitcoinaverage.com', '/indices/global/ticker/BTC%s' % ccy)
             return {ccy: Decimal(json1['last'])*Decimal(json2['last'])}

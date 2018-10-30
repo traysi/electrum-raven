@@ -264,7 +264,7 @@ class ElectrumWindow(App):
 
         App.__init__(self)#, **kwargs)
 
-        title = _('Electrum-MONA App')
+        title = _('Electrum-RVN App')
         self.electrum_config = config = kwargs.get('config', None)
         self.language = config.get('language', 'en')
         self.network = network = kwargs.get('network', None)  # type: Network
@@ -327,7 +327,7 @@ class ElectrumWindow(App):
         if is_address(data):
             self.set_URI(data)
             return
-        if data.startswith('monacoin:'):
+        if data.startswith('ravencoin:'):
             self.set_URI(data)
             return
         # try to decode transaction
@@ -421,7 +421,7 @@ class ElectrumWindow(App):
         from jnius import autoclass, cast
         from android import activity
         PythonActivity = autoclass('org.kivy.android.PythonActivity')
-        SimpleScannerActivity = autoclass("org.electrum-mona.qr.SimpleScannerActivity")
+        SimpleScannerActivity = autoclass("org.electrum-rvn.qr.SimpleScannerActivity")
         Intent = autoclass('android.content.Intent')
         intent = Intent(PythonActivity.mActivity, SimpleScannerActivity)
 
@@ -482,7 +482,7 @@ class ElectrumWindow(App):
         self.fiat_unit = self.fx.ccy if self.fx.is_enabled() else ''
         # default tab
         self.switch_to('history')
-        # bind intent for monacoin: URI scheme
+        # bind intent for ravencoin: URI scheme
         if platform == 'android':
             from android import activity
             from jnius import autoclass
@@ -766,8 +766,8 @@ class ElectrumWindow(App):
                 from plyer import notification
             icon = (os.path.dirname(os.path.realpath(__file__))
                     + '/../../' + self.icon)
-            notification.notify('Electrum-MONA', message,
-                            app_icon=icon, app_name='Electrum-MONA')
+            notification.notify('Electrum-RVN', message,
+                            app_icon=icon, app_name='Electrum-RVN')
         except ImportError:
             Logger.Error('Notification: needs plyer; `sudo pip install plyer`')
 

@@ -1,11 +1,11 @@
 {
-    "electrumx1.testnet.monacoin.ninja": {
+    "electrumx1.testnet.ravencoin.ninja": {
         "pruning": "-",
         "s": "51002",
         "t": "51001",
         "version": "1.2"
     },
-    "electrumx1.testnet.monacoin.nl": {
+    "electrumx1.testnet.ravencoin.nl": {
         "pruning": "-",
         "s": "51002",
         "t": "51001",

@@ -72,7 +72,7 @@ def get_payment_request(url):
         try:
             response = requests.request('GET', url, headers=REQUEST_HEADERS)
             response.raise_for_status()
-            # Guard against `monacoin:`-URIs with invalid payment request URLs
+            # Guard against `ravencoin:`-URIs with invalid payment request URLs
             if "Content-Type" not in response.headers \
             or response.headers["Content-Type"] != "application/bitcoin-paymentrequest":
                 data = None

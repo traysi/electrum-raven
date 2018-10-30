@@ -139,7 +139,7 @@ def sweep(privkeys, network: 'Network', config: 'SimpleConfig', recipient, fee=N
     locktime = network.get_local_height()
 
     tx = Transaction.from_io(inputs, outputs, locktime=locktime)
-    # monacoin's rbf is disabled 
+    # ravencoin's rbf is disabled 
     # tx.set_rbt(True)
     tx.set_rbf(False)
     tx.sign(keypairs)
@@ -544,7 +544,7 @@ class Abstract_Wallet(AddressSynchronizer):
         for i, o in enumerate(outputs):
             if o.type == TYPE_ADDRESS:
                 if not is_address(o.address):
-                    raise Exception("Invalid monacoin address: {}".format(o.address))
+                    raise Exception("Invalid ravencoin address: {}".format(o.address))
             if o.value == '!':
                 if i_max is not None:
                     raise Exception("More than one output set to spend max")
@@ -865,7 +865,7 @@ class Abstract_Wallet(AddressSynchronizer):
         if not r:
             return
         out = copy.copy(r)
-        out['URI'] = 'monacoin:' + addr + '?amount=' + format_satoshis(out.get('amount'))
+        out['URI'] = 'ravencoin:' + addr + '?amount=' + format_satoshis(out.get('amount'))
         status, conf = self.get_request_status(addr)
         out['status'] = status
         if conf is not None:

@@ -365,7 +365,7 @@ def android_data_dir():
     return PythonActivity.mActivity.getFilesDir().getPath() + '/data'
 
 def android_headers_dir():
-    d = android_ext_dir() + '/org.electrum-mona.electrum'
+    d = android_ext_dir() + '/org.electrum-rvn.electrum'
     if not os.path.exists(d):
         try:
             os.mkdir(d)
@@ -623,23 +623,13 @@ def time_difference(distance_in_time, include_seconds):
         return "over %d years" % (round(distance_in_minutes / 525600))
 
 mainnet_block_explorers = {
-    'bchain.info': ('https://bchain.info/MONA/',
-                        {'tx': 'tx/', 'addr': 'addr/'}),
-    'insight.monaco-ex.org': ('https://mona.insight.monaco-ex.org/insight/',
+    'ravencoin.network': ('https://ravencoin.network/',
                         {'tx': 'tx/', 'addr': 'address/'}),
-    'insight.electrum-mona.org': ('https://insight.electrum-mona.org/insight/',
-                        {'tx': 'tx/', 'addr': 'address/'}),
-    'mona.chainseeker.info': ('https://mona.chainseeker.info/',
-                        {'tx': 'tx/', 'addr': 'addr/'}),
-    'blockbook.electrum-mona.org': ('https://blockbook.electrum-mona.org/',
+    'rvn.traysi.org': ('http://rvn.traysi.org/',
                         {'tx': 'tx/', 'addr': 'address/'}),
 }
 
 testnet_block_explorers = {
-    'insight.monaco-ex.org': ('https://testnet-mona.insight.monaco-ex.org/insight/',
-                        {'tx': 'tx/', 'addr': 'address/'}),
-    'system default': ('blockchain:',
-                       {'tx': 'tx/', 'addr': 'address/'}),
 }
 
 def block_explorer_info():
@@ -648,7 +638,7 @@ def block_explorer_info():
 
 def block_explorer(config: 'SimpleConfig') -> str:
     from . import constants
-    default_ = 'insight.electrum-mona.org' if not constants.net.TESTNET else 'insight.monaco-ex.org'
+    default_ = 'ravencoin.network' if not constants.net.TESTNET else 'rvn.traysi.org'
     be_key = config.get('block_explorer', default_)
     be = block_explorer_info().get(be_key)
     return be_key if be is not None else default_

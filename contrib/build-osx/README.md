@@ -16,7 +16,7 @@ Before starting, make sure that the Xcode command line tools are installed (e.g.
     cd electrum
     ./contrib/build-osx/make_osx
     
-This creates a folder named Electrum-MONA.app.
+This creates a folder named Electrum-RVN.app.
 
 ## 2. Building the image 
 The usual way to distribute macOS applications is to use image files containing the 
@@ -33,5 +33,5 @@ Copy the Electrum.app directory over and install the dependencies, e.g.:
 Then you can just invoke `package.sh` with the path to the app:
 
     cd electrum-rvn
-    ./contrib/build-osx/package.sh ~/Electrum-MONA.app/
+    ./contrib/build-osx/package.sh ~/Electrum-RVN.app/
 

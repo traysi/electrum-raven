@@ -11,6 +11,7 @@ Electrum-rvn - Lightweight Ravencoin client
 
 
 .. image:: https://minermore.com/images/ravencoin.svg
+    :width: 100px
     :target: https://github.com/standard-error/electrum-raven
     :alt: Build Status
 

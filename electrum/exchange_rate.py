@@ -138,7 +138,7 @@ class BitcoinAverage(ExchangeBase):
 
 class Bittrex(ExchangeBase):
     async def get_rates(self, ccy):
-        json1 = await self.get_json('bittrex.com', '/api/v1.1/public/getticker?market=btc-mona')
+        json1 = await self.get_json('bittrex.com', '/api/v1.1/public/getticker?market=btc-rvn')
         if ccy != "BTC":
             json2 = await self.get_json('apiv2.bitcoinaverage.com', '/indices/global/ticker/BTC%s' % ccy)
             return {ccy: Decimal(json1['result']['Last'])*Decimal(json2['last'])}
@@ -146,12 +146,12 @@ class Bittrex(ExchangeBase):
 
 class Bitbank(ExchangeBase):
     async def get_rates(self, ccy):
-        json = await self.get_json('public.bitbank.cc', '/mona_jpy/ticker')
+        json = await self.get_json('public.bitbank.cc', '/rvn_jpy/ticker')
         return {'JPY': Decimal(json['data']['last'])}
 
 class Zaif(ExchangeBase):
     async def get_rates(self, ccy):
-        json = await self.get_json('api.zaif.jp', '/api/1/last_price/mona_jpy')
+        json = await self.get_json('api.zaif.jp', '/api/1/last_price/rvn_jpy')
         return {'JPY': Decimal(json['last_price'])}
 
 

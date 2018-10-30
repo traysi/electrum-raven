@@ -1,4 +1,4 @@
-name: electrum-mona
+name: electrum-rvn
 version: master
 summary: Ravencoin thin client
 description: |
@@ -9,7 +9,7 @@ confinement: strict
 
 apps:
   electrum:
-    command: desktop-launch electrum-mona
+    command: desktop-launch electrum-rvn
     plugs: [network, network-bind, x11, unity7]
 
 parts:

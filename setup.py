@@ -46,7 +46,7 @@ if platform.system() in ['Linux', 'FreeBSD', 'DragonFly']:
         else:
             usr_share = os.path.expanduser('~/.local/share')
     data_files += [
-        (os.path.join(usr_share, 'applications/'), ['electrum-mona.desktop']),
+        (os.path.join(usr_share, 'applications/'), ['electrum-rvn.desktop']),
         (os.path.join(usr_share, icons_dirname), ['icons/electrum.png'])
     ]
 
@@ -76,7 +76,7 @@ class CustomInstallCommand(install):
 
 
 setup(
-    name="Electrum-MONA",
+    name="Electrum-RVN",
     version=version.ELECTRUM_VERSION,
     python_requires='>={}'.format(MIN_PYTHON_VERSION),
     install_requires=requirements,
@@ -97,13 +97,13 @@ setup(
             'locale/*/LC_MESSAGES/electrum.mo',
         ],
     },
-    scripts=['electrum/electrum-mona'],
+    scripts=['electrum/electrum-rvn'],
     data_files=data_files,
     description="Lightweight Ravencoin Wallet",
     author="Thomas Voegtlin",
     author_email="thomasv@electrum.org",
     license="MIT Licence",
-    url="https://electrum-mona.org",
+    url="https://ravencoin.org",
     long_description="""Lightweight Ravencoin Wallet""",
     cmdclass={
         'install': CustomInstallCommand,

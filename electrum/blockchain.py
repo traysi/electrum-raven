@@ -26,9 +26,8 @@ from typing import Optional, Dict
 
 from . import util
 from .bitcoin import hash_encode, int_to_hex, rev_hex
-from .crypto import sha256d
 from . import constants
-from .util import bfh, bh2u, print_msg
+from .util import bfh, bh2u
 from .simple_config import SimpleConfig
 
 MAX_TARGET = 0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -40,8 +39,6 @@ try:
     import x16r_hash
 except ImportError as e:
     sys.exit("x16r module is required")
-
-#from .scrypt import scrypt_1024_1_1_80 as scryptGetHash
 
 
 class MissingHeader(Exception):
@@ -76,15 +73,11 @@ def deserialize_header(s: bytes, height: int) -> dict:
     return h
 
 def hash_header(header: dict) -> str:
-    print_msg("hash_header height: {} prev_block_hash: {}".format(header['block_height'],header['prev_block_hash']))
     if header is None:
-        print_msg("hash_header header is None")
         return '0' * 64
     if header.get('prev_block_hash') is None:
-        print_msg("prev_block_hash is None")
         header['prev_block_hash'] = '00'*32
     result = hash_encode(x16r_hash.getPoWHash(bfh(serialize_header(header))))
-    print_msg("height: {} hash: {}".format(header['block_height'],result))
     return result
 
 

@@ -17,7 +17,7 @@ export PATH=$PATH:~/bin
 . $(dirname "$0")/base.sh
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 Electrum-MONA.app"
+    echo "Usage: $0 Electrum-RVN.app"
     exit -127
 fi
 
@@ -73,7 +73,7 @@ ${genisoimage} \
     -D \
     -l \
     -probe \
-    -V "Electrum-MONA" \
+    -V "Electrum-RVN" \
     -no-pad \
     -r \
     -dir-mode 0755 \
@@ -81,8 +81,8 @@ ${genisoimage} \
     -o Electrum_uncompressed.dmg \
     /tmp/electrum-macos/image || fail "Unable to create uncompressed dmg"
 
-dmg dmg Electrum_uncompressed.dmg electrum-mona-$VERSION.dmg || fail "Unable to create compressed dmg"
+dmg dmg Electrum_uncompressed.dmg electrum-rvn-$VERSION.dmg || fail "Unable to create compressed dmg"
 rm Electrum_uncompressed.dmg
 
 echo "Done."
-md5sum electrum-mona-$VERSION.dmg
+md5sum electrum-rvn-$VERSION.dmg

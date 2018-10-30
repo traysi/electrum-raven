@@ -19,7 +19,7 @@ install:
 cache:
   - pip: true
   - directories:
-    - /tmp/electrum-mona-build
+    - /tmp/electrum-rvn-build
 script:
     - tox
 after_success:
@@ -36,9 +36,9 @@ jobs:
       services:
         - docker
       install:
-        - sudo docker build  --no-cache -t electrum-mona-wine-builder-img ./contrib/build-wine/docker/
+        - sudo docker build  --no-cache -t electrum-rvn-wine-builder-img ./contrib/build-wine/docker/
       script:
-        - sudo docker run --name electrum-mona-wine-builder-cont -v $PWD:/opt/wine64/drive_c/electrum-mona --rm --workdir /opt/wine64/drive_c/electrum-mona/contrib/build-wine electrum-mona-wine-builder-img ./build.sh
+        - sudo docker run --name electrum-rvn-wine-builder-cont -v $PWD:/opt/wine64/drive_c/electrum-rvn --rm --workdir /opt/wine64/drive_c/electrum-rvn/contrib/build-wine electrum-rvn-wine-builder-img ./build.sh
       after_success: true
     - os: osx
       language: c

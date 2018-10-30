@@ -1,15 +1,15 @@
-name: electrum-mona
+name: electrum-rvn
 version: master
-summary: Monacoin thin client
+summary: Ravencoin thin client
 description: |
-  Lightweight Monacoin client
+  Lightweight Ravencoin client
 
 grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: strict
 
 apps:
   electrum:
-    command: desktop-launch electrum-mona
+    command: desktop-launch electrum-rvn
     plugs: [network, network-bind, x11, unity7]
 
 parts:

@@ -1,4 +1,4 @@
-package org.electrum-mona.qr;
+package org.electrum-rvn.qr;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import com.google.zxing.BarcodeFormat;
 
 public class SimpleScannerActivity extends Activity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
-    final String TAG = "org.electrum-mona.SimpleScannerActivity";
+    final String TAG = "org.electrum-rvn.SimpleScannerActivity";
 
     @Override
     public void onCreate(Bundle state) {

@@ -20,7 +20,7 @@ folder.
 2. Build image
 
     ```
-    $ sudo docker build --no-cache -t electrum-mona-wine-builder-img contrib/build-wine/docker
+    $ sudo docker build --no-cache -t electrum-rvn-wine-builder-img contrib/build-wine/docker
     ```
 
     Note: see [this](https://stackoverflow.com/a/40516974/7499128) if having dns problems
@@ -30,11 +30,11 @@ folder.
     ```
     $ git checkout $REV
     $ sudo docker run \
-        --name electrum-mona-wine-builder-cont \
-        -v $PWD:/opt/wine64/drive_c/electrum-mona \
+        --name electrum-rvn-wine-builder-cont \
+        -v $PWD:/opt/wine64/drive_c/electrum-rvn \
         --rm \
-        --workdir /opt/wine64/drive_c/electrum-mona/contrib/build-wine \
-        electrum-mona-wine-builder-img \
+        --workdir /opt/wine64/drive_c/electrum-rvn/contrib/build-wine \
+        electrum-rvn-wine-builder-img \
         ./build.sh
     ```
 4. The generated binaries are in `./contrib/build-wine/dist`.

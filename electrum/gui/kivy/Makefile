@@ -26,7 +26,7 @@ release:
 	@make clean
 clean:
 	# Cleaning up
-	# rename main.py to electrum-mona
+	# rename main.py to electrum-rvn
 	@-rm ../../../main.py
 	# remove buildozer.spec
 	@-rm ../../../buildozer.spec

@@ -61,8 +61,8 @@ class BaseCrashReporter:
         self.exc_args = (exctype, value, tb)
 
     def send_report(self, asyncio_loop, proxy, endpoint="/crash"):
-        # if constants.net.GENESIS[-4:] not in ["e0b2", "8bb6"] and ".electrum-mona.org" in BaseCrashReporter.report_server:
-        # electrum-mona's crashhub is not found :\
+        # if constants.net.GENESIS[-4:] not in ["e0b2", "8bb6"] and ".electrum-rvn.org" in BaseCrashReporter.report_server:
+        # electrum-rvn's crashhub is not found :\
         if constants.net.GENESIS[-4:] not in ["4943", "e26f"] and ".electrum.org" in BaseCrashReporter.report_server:
             # Gah! Some kind of altcoin wants to send us crash reports.
             raise Exception(_("Missing report URL."))

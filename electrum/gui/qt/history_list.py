@@ -355,7 +355,7 @@ class HistoryList(MyTreeWidget, AcceptFileDragDrop):
             menu.addAction(_("Edit {}").format(self.headerItem().text(c)),
                            lambda bound_c=c: self.editItem(item, bound_c))
         menu.addAction(_("Details"), lambda: self.parent.show_transaction(tx))
-        #monacoin param
+        #ravencoin param
         #if is_unconfirmed and tx:
         #    # note: the current implementation of RBF *needs* the old tx fee
         #    rbf = is_mine and not tx.is_final() and fee is not None
@@ -400,7 +400,7 @@ class HistoryList(MyTreeWidget, AcceptFileDragDrop):
         d = WindowModalDialog(self, _('Export History'))
         d.setMinimumSize(400, 200)
         vbox = QVBoxLayout(d)
-        defaultname = os.path.expanduser('~/electrum-mona-history.csv')
+        defaultname = os.path.expanduser('~/electrum-rvn-history.csv')
         select_msg = _('Select file to export your wallet transactions to')
         hbox, filename_e, csv_button = filename_field(self, self.config, defaultname, select_msg)
         vbox.addLayout(hbox)

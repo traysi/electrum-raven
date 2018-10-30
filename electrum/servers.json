@@ -1,62 +1,8 @@
 {
-    "electrumx.tamami-foundation.org": {
+    "rvn.satoshi.org.uk": {
         "pruning": "-",
         "s": "50002",
         "t": "50001",
-        "version": "1.2"
-    },
-    "electrumx2.tamami-foundation.org": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "electrumx3.tamami-foundation.org": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "electrumx1.monacoin.nl": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "electrumx2.monacoin.nl": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "electrumx1.monacoin.ninja": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "electrumx2.monacoin.ninja": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "electrumx2.movsign.info": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "electrum-mona.bitbank.cc": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
-    },
-    "ri7rzlmdaf4eqbza.onion": {
-        "pruning": "-",
-        "s": "50002",
-        "t": "50001",
-        "version": "1.2"
+        "version": "1.3"
     }
 }

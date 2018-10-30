@@ -402,7 +402,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             self.setGeometry(100, 100, 840, 400)
 
     def watching_only_changed(self):
-        name = "Electrum-mona Testnet" if constants.net.TESTNET else "Electrum-mona"
+        name = "Electrum-raven Testnet" if constants.net.TESTNET else "Electrum-raven"
         title = '%s %s  -  %s' % (name, ELECTRUM_VERSION,
                                         self.wallet.basename())
         extra = [self.wallet.storage.get('wallet_type', '?')]

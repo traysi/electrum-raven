@@ -28,18 +28,20 @@ from . import util
 from .bitcoin import hash_encode, int_to_hex, rev_hex
 from .crypto import sha256d
 from . import constants
-from .util import bfh, bh2u
+from .util import bfh, bh2u, print_msg
 from .simple_config import SimpleConfig
 
 MAX_TARGET = 0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 HEADER_SIZE = 80  # bytes
 
-try:
-    import lyra2re2_hash
-except ImportError as e:
-    sys.exit("Please run 'sudo pip3 install https://github.com/metalicjames/lyra2re-hash-python/archive/master.zip'")
+nDGWActivationBlock = 338778
 
-from .scrypt import scrypt_1024_1_1_80 as scryptGetHash
+try:
+    import x16r_hash
+except ImportError as e:
+    sys.exit("x16r module is required")
+
+#from .scrypt import scrypt_1024_1_1_80 as scryptGetHash
 
 
 class MissingHeader(Exception):
@@ -74,11 +76,16 @@ def deserialize_header(s: bytes, height: int) -> dict:
     return h
 
 def hash_header(header: dict) -> str:
+    print_msg("hash_header height: {} prev_block_hash: {}".format(header['block_height'],header['prev_block_hash']))
     if header is None:
+        print_msg("hash_header header is None")
         return '0' * 64
     if header.get('prev_block_hash') is None:
+        print_msg("prev_block_hash is None")
         header['prev_block_hash'] = '00'*32
-    return hash_encode(sha256d(bfh(serialize_header(header))))
+    result = hash_encode(x16r_hash.getPoWHash(bfh(serialize_header(header))))
+    print_msg("height: {} hash: {}".format(header['block_height'],result))
+    return result
 
 
 blockchains = {}  # type: Dict[int, Blockchain]
@@ -186,17 +193,14 @@ class Blockchain(util.PrintError):
         if prev_hash != header.get('prev_block_hash'):
             raise Exception("prev hash mismatch: %s vs %s" % (prev_hash, header.get('prev_block_hash')))
         # DGWv3 PastBlocksMax = 24 Because checkpoint don't have preblock data.
-        if height % 2016 != 0 and height // 2016 < len(self.checkpoints) or height >= len(self.checkpoints)*2016 and height <= len(self.checkpoints)*2016 + 24:
+        if height % 2016 != 0 and height // 2016 < len(self.checkpoints) or height >= len(self.checkpoints)*2016 and height <= len(self.checkpoints)*2016 + 180:
             return
         if constants.net.TESTNET:
             return
         bits = self.convbits(target)
         if bits != header.get('bits'):
             raise Exception("bits mismatch: %s vs %s" % (bits, header.get('bits')))
-        if height < 450000 :
-            _powhash = rev_hex(bh2u(scryptGetHash(bfh(serialize_header(header)))))
-        else:
-            _powhash = rev_hex(bh2u(lyra2re2_hash.getPoWHash(bfh(serialize_header(header)))))
+        _powhash = rev_hex(bh2u(x16r_hash.getPoWHash(bfh(serialize_header(header)))))
         if int('0x' + _powhash, 16) > target:
             raise Exception("insufficient proof of work: %s vs target %s" % (int('0x' + _powhash, 16), target))
 
@@ -392,8 +396,8 @@ class Blockchain(util.PrintError):
         BlockCreating = height
         nActualTimespan = 0
         LastBlockTime = 0
-        PastBlocksMin = 24
-        PastBlocksMax = 24
+        PastBlocksMin = 180
+        PastBlocksMax = 180
         CountBlocks = 0
         PastDifficultyAverage = 0
         PastDifficultyAveragePrev = 0
@@ -402,8 +406,7 @@ class Blockchain(util.PrintError):
         # DGWv3 PastBlocksMax = 24 Because checkpoint don't have preblock data.
         if height < len(self.checkpoints)*2016 + PastBlocksMax:
             return 0, 0
-        #thanks watanabe!! http://askmona.org/5288#res_61
-        if BlockLastSolved is None or height-1 < 450024:
+        if BlockLastSolved is None:
             return 0x1e0fffff, MAX_TARGET
         for i in range(1, PastBlocksMax + 1):
             CountBlocks += 1
@@ -429,7 +432,7 @@ class Blockchain(util.PrintError):
 
 
         bnNew = PastDifficultyAverage
-        nTargetTimespan = CountBlocks * 90 #1.5 miniutes
+        nTargetTimespan = CountBlocks * 60 # 1 min
 
         nActualTimespan = max(nActualTimespan, nTargetTimespan//3)
         nActualTimespan = min(nActualTimespan, nTargetTimespan*3)

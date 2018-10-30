@@ -56,9 +56,9 @@ def inv_dict(d):
     return {v: k for k, v in d.items()}
 
 
-base_units = {'MONA':8, 'mMONA':5, 'bits':2, 'sat':0}
+base_units = {'RVN':8, 'mRVN':5, 'bits':2, 'sat':0}
 base_units_inverse = inv_dict(base_units)
-base_units_list = ['MONA', 'mMona', 'bits', 'sat']  # list(dict) does not guarantee order
+base_units_list = ['RVN', 'mRVN', 'bits', 'sat']  # list(dict) does not guarantee order
 
 DECIMAL_POINT_DEFAULT = 8  # BTC
 
@@ -67,7 +67,7 @@ class UnknownBaseUnit(Exception): pass
 
 
 def decimal_point_to_base_unit_name(dp: int) -> str:
-    # e.g. 8 -> "MONA"
+    # e.g. 8 -> "RVN"
     try:
         return base_units_inverse[dp]
     except KeyError:
@@ -75,7 +75,7 @@ def decimal_point_to_base_unit_name(dp: int) -> str:
 
 
 def base_unit_name_to_decimal_point(unit_name: str) -> int:
-    # e.g. "MONA" -> 8
+    # e.g. "RVN" -> 8
     try:
         return base_units[unit_name]
     except KeyError:
@@ -147,7 +147,7 @@ class Satoshis(object):
         return 'Satoshis(%d)'%self.value
 
     def __str__(self):
-        return format_satoshis(self.value) + " MONA"
+        return format_satoshis(self.value) + " RVN"
 
 class Fiat(object):
     __slots__ = ('value', 'ccy')
@@ -489,11 +489,11 @@ def user_dir():
     if 'ANDROID_DATA' in os.environ:
         return android_check_data_dir()
     elif os.name == 'posix':
-        return os.path.join(os.environ["HOME"], ".electrum-mona")
+        return os.path.join(os.environ["HOME"], ".electrum-raven")
     elif "APPDATA" in os.environ:
-        return os.path.join(os.environ["APPDATA"], "Electrum-MONA")
+        return os.path.join(os.environ["APPDATA"], "Electrum-RAVEN")
     elif "LOCALAPPDATA" in os.environ:
-        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-MONA")
+        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-RAVEN")
     else:
         #raise Exception("No home directory found in environment variables.")
         return
@@ -677,12 +677,12 @@ def parse_URI(uri, on_pr=None):
 
     if ':' not in uri:
         if not bitcoin.is_address(uri):
-            raise Exception("Not a monacoin address")
+            raise Exception("Not a Ravencoin address")
         return {'address': uri}
 
     u = urllib.parse.urlparse(uri)
-    if u.scheme != 'monacoin':
-        raise Exception("Not a monacoin URI")
+    if u.scheme != 'ravencoin':
+        raise Exception("Not a Ravencoin URI")
     address = u.path
 
     # python for android fails to parse query
@@ -699,7 +699,7 @@ def parse_URI(uri, on_pr=None):
     out = {k: v[0] for k, v in pq.items()}
     if address:
         if not bitcoin.is_address(address):
-            raise Exception("Invalid monacoin address:" + address)
+            raise Exception("Invalid Ravencoin address:" + address)
         out['address'] = address
     if 'amount' in out:
         am = out['amount']
@@ -749,7 +749,7 @@ def create_URI(addr, amount, message):
         query.append('amount=%s'%format_satoshis_plain(amount))
     if message:
         query.append('message=%s'%urllib.parse.quote(message))
-    p = urllib.parse.ParseResult(scheme='monacoin', netloc='', path=addr, params='', query='&'.join(query), fragment='')
+    p = urllib.parse.ParseResult(scheme='Ravencoin', netloc='', path=addr, params='', query='&'.join(query), fragment='')
     return urllib.parse.urlunparse(p)
 
 

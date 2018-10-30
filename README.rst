@@ -1,11 +1,11 @@
-Electrum-rvn - Lightweight Ravencoin client
+Electrum-raven - Lightweight Ravencoin client
 =====================================
 
 ::
 
   Licence: MIT Licence
   Author: Thomas Voegtlin
-  Port Maintainer: standadout-error (Electrum-rvn)
+  Port Maintainer: standard-error@github (Electrum-raven)
   Language: Python (>= 3.6)
   Homepage: https://ravencoin.org/
 
@@ -52,7 +52,7 @@ Development version
 
 Check out the code from GitHub::
 
-    git clone https://github.com/wakiyamap/electrum-raven.git
+    git clone https://github.com/standard-error/electrum-raven.git
     cd electrum-raven
 
 Need x16r_hash::

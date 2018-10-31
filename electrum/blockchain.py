@@ -34,6 +34,7 @@ MAX_TARGET = 0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 HEADER_SIZE = 80  # bytes
 
 nDGWActivationBlock = 338778
+DGW_PASTBLOCKS = 180
 
 try:
     import x16r_hash
@@ -186,7 +187,7 @@ class Blockchain(util.PrintError):
         if prev_hash != header.get('prev_block_hash'):
             raise Exception("prev hash mismatch: %s vs %s" % (prev_hash, header.get('prev_block_hash')))
         # DGWv3 PastBlocksMax = 24 Because checkpoint don't have preblock data.
-        if height % 2016 != 0 and height // 2016 < len(self.checkpoints) or height >= len(self.checkpoints)*2016 and height <= len(self.checkpoints)*2016 + 180:
+        if height % 2016 != 0 and height // 2016 < len(self.checkpoints) or height >= len(self.checkpoints)*2016 and height <= len(self.checkpoints)*2016 + DGW_PASTBLOCKS:
             return
         if constants.net.TESTNET:
             return
@@ -389,18 +390,18 @@ class Blockchain(util.PrintError):
         BlockCreating = height
         nActualTimespan = 0
         LastBlockTime = 0
-        PastBlocksMin = 180
-        PastBlocksMax = 180
+        PastBlocksMin = DGW_PASTBLOCKS
+        PastBlocksMax = DGW_PASTBLOCKS
         CountBlocks = 0
         PastDifficultyAverage = 0
         PastDifficultyAveragePrev = 0
         bnNum = 0
 
-        # DGWv3 PastBlocksMax = 24 Because checkpoint don't have preblock data.
+        # DGWv3 PastBlocksMax = 180 Because checkpoint don't have preblock data.
         if height < len(self.checkpoints)*2016 + PastBlocksMax:
             return 0, 0
         if BlockLastSolved is None:
-            return 0x1e0fffff, MAX_TARGET
+            return 0x1e00ffff, MAX_TARGET
         for i in range(1, PastBlocksMax + 1):
             CountBlocks += 1
 
@@ -436,8 +437,7 @@ class Blockchain(util.PrintError):
         bnNew = min(bnNew, MAX_TARGET)
 
         return bnNew
-
-
+        
     def get_target(self, height, chain=None):
         if constants.net.TESTNET:
             return 0
@@ -445,6 +445,8 @@ class Blockchain(util.PrintError):
             h, t = self.checkpoints[height // 2016]
             return t
         elif height // 2016 < len(self.checkpoints) and height % 2016 != 0:
+            return 0
+        elif height < nDGWActivationBlock: # small window between checkpoint and dgw activation not checked
             return 0
         else:
             return self.get_target_dgwv3(height, chain)
@@ -515,3 +517,4 @@ def can_connect(header: dict) -> Optional[Blockchain]:
         if b.can_connect(header):
             return b
     return None
+

@@ -127,32 +127,13 @@ class ExchangeBase(PrintError):
         rates = self.get_rates('')
         return sorted([str(a) for (a, b) in rates.items() if b is not None and len(a)==3])
 
-
-class BitcoinAverage(ExchangeBase):
-    async def get_rates(self, ccy):
-        json1 = await self.get_json('apiv2.bitcoinaverage.com', '/indices/crypto/ticker/RVNBTC')
-        if ccy != "BTC":
-            json2 = await self.get_json('apiv2.bitcoinaverage.com', '/indices/global/ticker/BTC%s' % ccy)
-            return {ccy: Decimal(json1['last'])*Decimal(json2['last'])}
-        return {ccy: Decimal(json1['last'])}
-
 class Bittrex(ExchangeBase):
     async def get_rates(self, ccy):
-        json1 = await self.get_json('bittrex.com', '/api/v1.1/public/getticker?market=btc-rvn')
+        json1 = await self.get_json('bittrex.com', '/api/v1.1/public/getticker?market=BTC-RVN')
         if ccy != "BTC":
             json2 = await self.get_json('apiv2.bitcoinaverage.com', '/indices/global/ticker/BTC%s' % ccy)
             return {ccy: Decimal(json1['result']['Last'])*Decimal(json2['last'])}
         return {ccy: Decimal(json1['result']['Last'])}
-
-class Bitbank(ExchangeBase):
-    async def get_rates(self, ccy):
-        json = await self.get_json('public.bitbank.cc', '/rvn_jpy/ticker')
-        return {'JPY': Decimal(json['data']['last'])}
-
-class Zaif(ExchangeBase):
-    async def get_rates(self, ccy):
-        json = await self.get_json('api.zaif.jp', '/api/1/last_price/rvn_jpy')
-        return {'JPY': Decimal(json['last_price'])}
 
 
 def dictinvert(d):
@@ -283,10 +264,10 @@ class FxThread(ThreadJob):
 
     def get_currency(self):
         '''Use when dynamic fetching is needed'''
-        return self.config.get("currency", "JPY")
+        return self.config.get("currency", "USD")
 
     def config_exchange(self):
-        return self.config.get('use_exchange', 'BitcoinAverage')
+        return self.config.get('use_exchange', 'Bittrex')
 
     def show_history(self):
         return self.is_enabled() and self.get_history_config() and self.ccy in self.exchange.history_ccys()
@@ -302,7 +283,7 @@ class FxThread(ThreadJob):
             self.network.asyncio_loop.call_soon_threadsafe(self._trigger.set)
 
     def set_exchange(self, name):
-        class_ = globals().get(name, BitcoinAverage)
+        class_ = globals().get(name, Bittrex)
         self.print_error("using exchange", name)
         if self.config_exchange() != name:
             self.config.set_key('use_exchange', name, True)
@@ -372,4 +353,5 @@ class FxThread(ThreadJob):
         from .util import timestamp_to_datetime
         date = timestamp_to_datetime(timestamp)
         return self.history_rate(date)
+
 

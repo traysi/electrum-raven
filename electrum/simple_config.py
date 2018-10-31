@@ -20,10 +20,10 @@ FEE_DEPTH_TARGETS = [10000000, 5000000, 2000000, 1000000, 500000, 200000, 100000
 # satoshi per kbyte
 FEERATE_MAX_DYNAMIC = 1000000
 FEERATE_WARNING_HIGH_FEE = 600000
-FEERATE_FALLBACK_STATIC_FEE = 100000
+FEERATE_FALLBACK_STATIC_FEE = 1150
 FEERATE_DEFAULT_RELAY = 1000
-FEERATE_STATIC_VALUES = [10000, 20000, 30000, 50000, 70000, 100000,
-                         150000, 200000, 300000, 500000]
+FEERATE_STATIC_VALUES = [1150, 1150, 1150, 1150, 1150, 1150,
+                         1150, 1150, 1150, 1150]
 
 config = None
 
@@ -474,7 +474,7 @@ class SimpleConfig(PrintError):
             return self.has_fee_etas()
 
     def is_dynfee(self):
-        return bool(self.get('dynamic_fees', True))
+        return bool(self.get('dynamic_fees', False))
 
     def use_mempool_fees(self):
         return bool(self.get('mempool_fees', False))
@@ -577,3 +577,4 @@ def read_user_config(path):
     if not type(result) is dict:
         return {}
     return result
+

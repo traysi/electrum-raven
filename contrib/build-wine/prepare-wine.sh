@@ -6,7 +6,9 @@ NSIS_FILENAME=nsis-3.03-setup.exe
 NSIS_URL=https://prdownloads.sourceforge.net/nsis/$NSIS_FILENAME?download
 NSIS_SHA256=bd3b15ab62ec6b0c7a00f46022d441af03277be893326f6fea8e212dc2d77743
 
-LYRA2RE_HASH_PYTHON_URL=https://github.com/wakiyamap/lyra2re-hash-python/releases/download/1.1.2/lyra2re2_hash-1.1.2-cp36-cp36m-win32.whl
+X16R_HASH_FILENAME=x16r_hash-1.0-cp36-cp36m-win32.whl
+X16R_HASH_PYTHON_URL=https://files.pythonhosted.org/packages/2e/ae/dabd6df3d3d148bbd19305c0c8e415f4ffd6e67646a67e0689e5a48cdb58/$X16R_HASH_FILENAME
+X16R_HASH_SHA256=c0c73fce1dd3cc40bb3a31ad1865917ad1d4ff2dfc747790f65746aa590a1f22
 
 LIB_GCC_FILENAME=libgcc-6.3.0-1-mingw32-dll-1.tar.xz
 LIB_GCC_URL=https://netix.dl.sourceforge.net/project/mingw/MinGW/Base/gcc/Version6/gcc-6.3.0/$LIB_GCC_FILENAME
@@ -144,8 +146,9 @@ verify_hash $LIBUSB_FILENAME "$LIBUSB_SHA256"
 
 cp libusb/MS32/dll/libusb-1.0.dll $WINEPREFIX/drive_c/python$PYTHON_VERSION/
 
-# install lyra2re2_hash
-$PYTHON -m pip install $LYRA2RE_HASH_PYTHON_URL
+
+# install x16r_hash
+$PYTHON -m pip install $X16R_HASH_PYTHON_URL
 
 # copy from mingw for lyra2re2_hash
 wget -q -O $LIB_GCC_FILENAME "$LIB_GCC_URL"

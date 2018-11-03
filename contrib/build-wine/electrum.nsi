@@ -7,8 +7,8 @@
 ;Variables
 
   !define PRODUCT_NAME "Electrum-RVN"
-  !define PRODUCT_WEB_SITE "https://github.com/wakiyamap/electrum-rvn"
-  !define PRODUCT_PUBLISHER "Electrum Technologies GmbH"
+  !define PRODUCT_WEB_SITE "https://github.com/traysi/electrum-raven"
+  !define PRODUCT_PUBLISHER "Electrum Raven"
   !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 
 ;--------------------------------

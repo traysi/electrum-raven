@@ -587,8 +587,9 @@ class LedgerPlugin(HW_PluginBase):
         device_id = device_info.device.id_
         client = devmgr.client_by_id(device_id)
         if client is None:
-            raise Exception(_('Failed to create a client for this device.') + '\n' +
-                            _('Make sure it is in the correct state.'))
+            raise Exception(_('Failed to create a client for this device') + '\n' +
+                            _('Make sure it is in the correct state') + '\n' + 
+                            _('Device must be unlocked with the Ravencoin app open.'))
         client.handler = self.create_handler(wizard)
         client.get_xpub("m/44'/175'", 'standard') # TODO replace by direct derivation once Nano S > 1.1
 

@@ -106,7 +106,7 @@ class BaseWizard(object):
             ('standard',  _("Standard wallet")),
             ('2fa', _("Wallet with two-factor authentication")),
             ('multisig',  _("Multi-signature wallet")),
-            ('imported',  _("Import Bitcoin addresses or private keys")),
+            ('imported',  _("Import Ravencoin addresses or private keys")),
         ]
         choices = [pair for pair in wallet_kinds if pair[0] in wallet_types]
         self.choice_dialog(title=title, message=message, choices=choices, run_next=self.on_wallet_type)
@@ -180,7 +180,7 @@ class BaseWizard(object):
     def import_addresses_or_keys(self):
         v = lambda x: keystore.is_address_list(x) or keystore.is_private_key_list(x)
         title = _("Import Ravencoin Addresses")
-        message = _("Enter a list of Bitcoin addresses (this will create a watching-only wallet), or a list of private keys(Please do not enter except secret key which starts with T).")
+        message = _("Enter a list of Ravencoin addresses (this will create a watching-only wallet), or a list of private keys.")
         self.add_xpub_dialog(title=title, message=message, run_next=self.on_import,
                              is_valid=v, allow_multi=True, show_wif_help=True)
 
@@ -228,14 +228,7 @@ class BaseWizard(object):
     def choose_hw_device(self, purpose=HWD_SETUP_NEW_WALLET):
         title = _('Hardware Keystore')
         # check available plugins
-        support = self.plugins.get_hardware_support()
-        if not support:
-            msg = '\n'.join([
-                _('No hardware wallet support found on your system.'),
-                _('Please install the relevant libraries (eg python-trezor for Trezor).'),
-            ])
-            self.confirm_dialog(title=title, message=msg, run_next= lambda x: self.choose_hw_device(purpose))
-            return
+        supported_plugins = self.plugins.get_hardware_support()
         # scan devices
         devices = []
         devmgr = self.plugins.device_manager
@@ -246,14 +239,24 @@ class BaseWizard(object):
             debug_msg = '  {}:\n    {}'.format(_('Error scanning devices'), e)
         else:
             debug_msg = ''
-            for name, description, plugin in support:
+            for splugin in supported_plugins:
+                name, plugin = splugin.name, splugin.plugin
+                # plugin init errored?
+                if not plugin:
+                    e = splugin.exception
+                    indented_error_msg = '    '.join([''] + str(e).splitlines(keepends=True))
+                    debug_msg += f'  {name}: (error during plugin init)\n'
+                    debug_msg += '    {}\n'.format(_('You might have an incompatible library.'))
+                    debug_msg += f'{indented_error_msg}\n'
+                    continue
+                # see if plugin recognizes 'scanned_devices'
                 try:
                     # FIXME: side-effect: unpaired_device_info sets client.handler
                     u = devmgr.unpaired_device_infos(None, plugin, devices=scanned_devices)
                 except BaseException as e:
-                    devmgr.print_error('error getting device infos for {}: {}'.format(name, e))
+                    devmgr.print_error(f'error getting device infos for {name}: {e}')
                     indented_error_msg = '    '.join([''] + str(e).splitlines(keepends=True))
-                    debug_msg += '  {}:\n{}\n'.format(plugin.name, indented_error_msg)
+                    debug_msg += f'  {name}: (error getting device infos)\n{indented_error_msg}\n'
                     continue
                 devices += list(map(lambda x: (name, x), u))
         if not debug_msg:
@@ -332,15 +335,15 @@ class BaseWizard(object):
             # For legacy, this is partially compatible with BIP45; assumes index=0
             # For segwit, a custom path is used, as there is no standard at all.
             choices = [
-                ('standard',   'legacy multisig (p2sh)',            "m/45'/0"),
-                ('p2wsh-p2sh', 'p2sh-segwit multisig (p2wsh-p2sh)', purpose48_derivation(0, xtype='p2wsh-p2sh')),
-                ('p2wsh',      'native segwit multisig (p2wsh)',    purpose48_derivation(0, xtype='p2wsh')),
+                ('standard',   'legacy multisig (p2sh)',            "m/45'/175"),
+#                ('p2wsh-p2sh', 'p2sh-segwit multisig (p2wsh-p2sh)', purpose48_derivation(0, xtype='p2wsh-p2sh')),
+#                ('p2wsh',      'native segwit multisig (p2wsh)',    purpose48_derivation(0, xtype='p2wsh')),
             ]
         else:
             choices = [
-                ('standard',    'legacy (p2pkh)',            bip44_derivation(0, bip43_purpose=44)),
-                ('p2wpkh-p2sh', 'p2sh-segwit (p2wpkh-p2sh)', bip44_derivation(0, bip43_purpose=49)),
-                ('p2wpkh',      'native segwit (p2wpkh)',    bip44_derivation(0, bip43_purpose=84)),
+                ('standard',    'legacy (p2pkh)',            bip44_derivation(175, bip43_purpose=44)),
+#                ('p2wpkh-p2sh', 'p2sh-segwit (p2wpkh-p2sh)', bip44_derivation(175, bip43_purpose=49)),
+#                ('p2wpkh',      'native segwit (p2wpkh)',    bip44_derivation(175, bip43_purpose=84)),
             ]
         while True:
             try:
@@ -529,14 +532,15 @@ class BaseWizard(object):
     def choose_seed_type(self):
         title = _('Choose Seed type')
         message = ' '.join([
-            _("The type of addresses used by your wallet will depend on your seed."),
-            _("Segwit wallets use bech32 addresses, defined in BIP173."),
-            _("Please note that websites and other wallets may not support these addresses yet."),
-            _("Thus, you might want to keep using a non-segwit wallet in order to be able to receive bitcoins during the transition period.")
+            _("Currently, only standard addresses are supported for Ravencoin."),
+#            _("The type of addresses used by your wallet will depend on your seed."),
+#            _("Segwit wallets use bech32 addresses, defined in BIP173."),
+#            _("Please note that websites and other wallets may not support these addresses yet."),
+#            _("Thus, you might want to keep using a non-segwit wallet in order to be able to receive bitcoins during the transition period.")
         ])
         choices = [
             ('create_standard_seed', _('Standard')),
-            ('create_segwit_seed', _('Segwit')),
+#            ('create_segwit_seed', _('Segwit')),
         ]
         self.choice_dialog(title=title, message=message, choices=choices, run_next=self.run)
 

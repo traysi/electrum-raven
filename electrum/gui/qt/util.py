@@ -795,9 +795,11 @@ class SortableTreeWidgetItem(QTreeWidgetItem):
 
     def __lt__(self, other):
         column = self.treeWidget().sortColumn()
-        if None not in [x.data(column, self.DataRole) for x in [self, other]]:
+        sData = self.data(column, self.DataRole)
+        oData = other.data(column, self.DataRole)
+        if sData is not None and oData is not None:
             # We have set custom data to sort by
-            return self.data(column, self.DataRole) < other.data(column, self.DataRole)
+            return sData < oData
         try:
             # Is the value something numeric?
             return float(self.text(column)) < float(other.text(column))

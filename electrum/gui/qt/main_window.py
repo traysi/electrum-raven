@@ -569,9 +569,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
 
         help_menu = menubar.addMenu(_("&Help"))
         help_menu.addAction(_("&About"), self.show_about)
-        help_menu.addAction(_("&Official website"), lambda: webbrowser.open("https://electrum-rvn.org"))
+        help_menu.addAction(_("&RVN Electrum Wiki"), lambda: webbrowser.open("https://raven.wiki/wiki/Electrum"))
+        help_menu.addAction(_("&GetRavencoin.org"), lambda: webbrowser.open("https://GetRavencoin.org"))
         help_menu.addSeparator()
-        help_menu.addAction(_("&Documentation"), lambda: webbrowser.open("http://docs.electrum-rvn.org")).setShortcut(QKeySequence.HelpContents)
         help_menu.addAction(_("&Report Bug"), self.show_report_bug)
         help_menu.addSeparator()
         help_menu.addAction(_("&Donate to server"), self.donate_to_server)
@@ -599,7 +599,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def show_report_bug(self):
         msg = ' '.join([
             _("Please report any bugs as issues on github:<br/>"),
-            "<a href=\"https://github.com/wakiyamap/electrum-rvn/issues\">https://github.com/wakiyamap/electrum-rvn/issues</a><br/><br/>",
+            "<a href=\"https://github.com/traysi/electrum-raven/issues\">https://github.com/traysi/electrum-raven/issues</a><br/><br/>",
             _("Before reporting a bug, upgrade to the most recent version of Electrum (latest release or git HEAD), and include the version number in your report."),
             _("Try to explain not only what the bug is, but how it occurs.")
          ])

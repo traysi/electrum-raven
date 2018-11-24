@@ -511,11 +511,11 @@ class Abstract_Wallet(AddressSynchronizer):
                 size = tx.estimated_size()
                 fee_per_byte = fee / size
                 extra.append(format_fee_satoshis(fee_per_byte) + ' sat/b')
-            if fee is not None and height in (TX_HEIGHT_UNCONF_PARENT, TX_HEIGHT_UNCONFIRMED) \
-               and self.network and self.network.config.has_fee_mempool():
-                exp_n = self.network.config.fee_to_depth(fee_per_byte)
-                if exp_n:
-                    extra.append('%.2f MB'%(exp_n/1000000))
+#            if fee is not None and height in (TX_HEIGHT_UNCONF_PARENT, TX_HEIGHT_UNCONFIRMED) \
+#               and self.network and self.network.config.has_fee_mempool():
+#                exp_n = self.network.config.fee_to_depth(fee_per_byte)
+#                if exp_n:
+#                    extra.append('%.2f MB'%(exp_n/1000000))
             if height == TX_HEIGHT_LOCAL:
                 status = 3
             elif height == TX_HEIGHT_UNCONF_PARENT:

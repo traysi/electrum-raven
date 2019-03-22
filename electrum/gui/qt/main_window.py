@@ -570,7 +570,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         help_menu = menubar.addMenu(_("&Help"))
         help_menu.addAction(_("&About"), self.show_about)
         help_menu.addAction(_("&RVN Electrum Wiki"), lambda: webbrowser.open("https://raven.wiki/wiki/Electrum"))
-        help_menu.addAction(_("&GetRavencoin.org"), lambda: webbrowser.open("https://GetRavencoin.org"))
+        help_menu.addAction(_("&Ravencoin.org"), lambda: webbrowser.open("https://Ravencoin.org"))
         help_menu.addSeparator()
         help_menu.addAction(_("&Report Bug"), self.show_report_bug)
         help_menu.addSeparator()

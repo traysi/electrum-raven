@@ -13,4 +13,4 @@ Electrum-raven - Lightweight Ravencoin client
 Moved
 ===============
 
-standard-error is maintaining this now. Please get your copy of Electrum-Raven at [Standard-Error's repository](https://github.com/standard-error/electrum-raven)
+standard-error is maintaining this now. Please get your copy of Electrum-Raven at Standard-Error's repository: https://github.com/standard-error/electrum-raven
